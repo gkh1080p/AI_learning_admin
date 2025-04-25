@@ -79,14 +79,14 @@ export const constantRoutes = [
         path: 'audit',
         name: 'CourseAudit',
         component: () => import('@/views/edu_course/educourse_audit'),
-        meta: { title: '课程上传', icon: 'audit' }
+        meta: { title: '课程审核', icon: 'audit' }
       },
-      {
-        path: 'handouts',
-        name: 'Handouts',
-        component: () => import('@/views/handouts/handouts.vue'),
-        meta: { title: '讲义上传', icon: 'cloud-up' }
-      },
+      // {
+      //   path: 'handouts',
+      //   name: 'Handouts',
+      //   component: () => import('@/views/handouts/handouts.vue'),
+      //   meta: { title: '讲义上传', icon: 'cloud-up' }
+      // },
       {
         path: 'subject',
         name: 'CourseSubject',
@@ -96,27 +96,27 @@ export const constantRoutes = [
     ]
   },
   // 讲师管理
-  // {
-  //   path: '/tch',
-  //   component: Layout,
-  //   redirect: '/tch/list',
-  //   name: 'Tch',
-  //   meta: { title: '讲师管理', icon: 'teacher' },
-  //   children: [
-  //     {
-  //       path: 'list',
-  //       name: 'TchList',
-  //       component: () => import('@/views/edu_teacher/eduteacher_list'),
-  //       meta: { title: '讲师列表', icon: 'list' }
-  //     },
-  //     {
-  //       path: 'audit',
-  //       name: 'TchAudit',
-  //       component: () => import('@/views/edu_teacher/eduteacher_audit'),
-  //       meta: { title: '讲师审核', icon: 'audit' }
-  //     }
-  //   ]
-  // },
+  {
+    path: '/tch',
+    component: Layout,
+    redirect: '/tch/list',
+    name: 'Tch',
+    meta: { title: '讲师管理', icon: 'teacher' },
+    children: [
+      {
+        path: 'list',
+        name: 'TchList',
+        component: () => import('@/views/edu_teacher/eduteacher_list'),
+        meta: { title: '讲师列表', icon: 'list' }
+      },
+      {
+        path: 'audit',
+        name: 'TchAudit',
+        component: () => import('@/views/edu_teacher/eduteacher_audit'),
+        meta: { title: '讲师审核', icon: 'audit' }
+      }
+    ]
+  },
 
   // 学员管理
   {

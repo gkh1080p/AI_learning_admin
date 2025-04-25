@@ -22,10 +22,12 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      title: this.$store.getters.options.name || '欢迎使用',
-      logo: this.$store.getters.options.logo || ''
+  computed: {
+    title() {
+      return this.$store.getters.options?.name || '欢迎使用'
+    },
+    logo() {
+      return this.$store.getters.options?.logo || ''
     }
   }
 }
