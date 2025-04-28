@@ -16,12 +16,12 @@
             @change="subjectOptionsChange"
           />
         </el-form-item>
-        <el-form-item label="是否免费：" prop="free">
+        <!-- <el-form-item label="是否免费：" prop="free">
           <el-select v-model="searchParams.free" style="width: 130px">
             <el-option label="免费" :value="true" />
             <el-option label="收费" :value="false" />
           </el-select>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="状态：" prop="enable">
           <el-select v-model="searchParams.enable" style="width: 130px">
             <el-option label="上架" :value="true" />

@@ -6,12 +6,12 @@
         <el-form-item label="课程名称：" prop="title">
           <el-input v-model="searchParams.title" placeholder="输入课程名称搜索" />
         </el-form-item>
-        <el-form-item label="是否免费：" prop="free">
+        <!-- <el-form-item label="是否免费：" prop="free">
           <el-select v-model="searchParams.free" style="width: 130px">
             <el-option label="免费" :value="true" />
             <el-option label="收费" :value="false" />
           </el-select>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="审核状态：" prop="status">
           <el-select v-model="searchParams.status" style="width: 130px">
             <el-option label="待审核" :value="'AUDITING'" />
