@@ -34,9 +34,9 @@
         />
       </el-form-item>
       <el-form :model="data" :inline="true" size="small" label-width="100px">
-        <el-form-item label="价格：" prop="price">
+        <!-- <el-form-item label="价格：" prop="price">
           <el-input-number v-model="data.price" :precision="2" :min="0" style="width: 160px" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="排序：" prop="sort">
           <el-input-number v-model="data.sort" style="width: 160px" />
         </el-form-item>
