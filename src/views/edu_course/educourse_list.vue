@@ -54,9 +54,7 @@
             {{ getDetailsSubject(scope.row.subjectParent) }}
           </template>
         </el-table-column>
-        <el-table-column prop="price" label="价格" width="100">
-          <template slot-scope="scope">{{ scope.row.price === 0 ? '免费' : scope.row.price }}</template>
-        </el-table-column>
+        
         <el-table-column prop="lessonNum" label="总课时" width="100" />
         <el-table-column prop="sort" label="排序" width="80" align="center" />
         <el-table-column prop="enable" label="上下架" width="180" align="center">

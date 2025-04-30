@@ -60,14 +60,7 @@
             <span class="cardName">学生数量</span>
           </div>
           <div class="cardContent clearfix">
-            <!-- <el-tooltip effect="dark" placement="top">
-              <div slot="content">学员总数量为：{{ stat.studentCount }}</div>
-              <span>{{ stat.studentCount }}</span>
-            </el-tooltip>
-            <el-tooltip effect="dark" placement="top">
-              <div slot="content">{{ stat.disabledStudentCount }} 名学员被禁用</div>
-              <span style="float: right;color: #F44336">{{ stat.disabledStudentCount }}</span>
-            </el-tooltip> -->
+            
             <div style="margin-top: 16px">
               <ve-pie height="238px" :data="{
                 columns: ['name', 'val'], rows: [
@@ -80,7 +73,7 @@
           </div>
         </el-card>
       </el-col>
-      <!-- 订单 -->
+      <!-- 课程类被观看数量 -->
       <el-col :xs="12" :sm="6">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
@@ -91,10 +84,7 @@
               <div slot="content">总播放数量：{{ stat.orderCount }}</div>
               <span>{{ stat.orderCount }}</span>
             </el-tooltip>
-            <!-- <el-tooltip effect="dark" placement="top">
-              <div slot="content">{{ stat.orderPayByNoneCount }} 个订单未支付</div>
-              <span style="float: right;color: #F44336">{{ stat.orderPayByNoneCount }}</span>
-            </el-tooltip> -->
+            
             <div style="margin-top: 16px">
               <ve-pie height="238px" :data="{
                 columns: ['name', 'val'], rows: [
