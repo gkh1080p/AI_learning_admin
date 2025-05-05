@@ -21,7 +21,7 @@
           </div>
           <div class="info">
             <span class="duration">时长: {{ value.duration }}</span>
-            <span v-if="value.free" class="free">免费</span>
+            <!-- <span v-if="value.free" class="free">免费</span> -->
           </div>
         </div>
       </div>
@@ -53,6 +53,7 @@ export default {
     },
     listChaptersAndVideos(courseId) {
       listChapters(courseId).then(resp => {
+        console.log('章节列表', resp.data)
         this.chapterData = resp.data
         let len = resp.data.length
         for (const c of resp.data) {

@@ -75,7 +75,7 @@
               icon="el-icon-info"
               icon-color="red"
               :title="`你要通过课程[${scope.row.title}]的审核吗？`"
-              @confirm="pass(scope.row)"
+              @confirm="passcourse(scope.row)"
             >
               <el-button slot="reference" type="success" size="mini">通过</el-button>
             </el-popconfirm>
@@ -278,7 +278,7 @@ export default {
       })
     },
     // 通过审核
-    pass(curData) {
+    passcourse(curData) {
       this.currentOperationData = curData
       pass(curData.id).then(resp => {
         this.$message.success(`课程[${curData.title}]已通过审核`)

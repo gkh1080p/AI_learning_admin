@@ -60,7 +60,7 @@
             <span class="cardName">学生数量</span>
           </div>
           <div class="cardContent clearfix">
-            
+
             <div style="margin-top: 16px">
               <ve-pie height="238px" :data="{
                 columns: ['name', 'val'], rows: [
@@ -84,7 +84,7 @@
               <div slot="content">总播放数量：{{ stat.orderCount }}</div>
               <span>{{ stat.orderCount }}</span>
             </el-tooltip>
-            
+
             <div style="margin-top: 16px">
               <ve-pie height="238px" :data="{
                 columns: ['name', 'val'], rows: [
@@ -120,10 +120,10 @@
                   { name: '驳回', val: stat.rejectedCourseCount }
                 ]
               }" :legend-visible="false" :settings="{ labelMap: { val: '数量' } }" :extend="{
-                  series: { label: { show: true, position: 'top' } },
-                  yAxis: { splitLine: { show: false }, axisLine: { show: true }, position: 'left' },
-                  xAxis: { splitLine: { show: false }, axisLine: { show: true }, position: 'bottom' }
-                }" />
+                series: { label: { show: true, position: 'top' } },
+                yAxis: { splitLine: { show: false }, axisLine: { show: true }, position: 'left' },
+                xAxis: { splitLine: { show: false }, axisLine: { show: true }, position: 'bottom' }
+              }" />
             </div>
           </div>
         </el-card>
@@ -236,6 +236,11 @@ export default {
   created() {
     this.getCommonStat()
   },
+  mounted() {
+    this.timer = setInterval(() => {
+      this.getCommonStat();
+    }, 5000);
+  },
   methods: {
     getCommonStat() {
       getCommon().then(resp => {
@@ -243,6 +248,9 @@ export default {
         console.log(this.stat)
       })
     }
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
   }
 }
 </script>

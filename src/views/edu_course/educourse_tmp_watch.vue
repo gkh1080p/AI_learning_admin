@@ -56,10 +56,12 @@ export default {
     },
     listChaptersAndVideos(courseId) {
       listChapters(courseId).then(resp => {
+        console.log('章节列表',resp.data)
         this.chapterData = resp.data
         let len = resp.data.length
         for (const c of resp.data) {
           listVideos(c.id).then(resp => {
+            console.log('二审视频列表',resp.data)
             this.videoData[c.id] = resp.data
             // 获取完视频列表
             if (--len <= 0) {
