@@ -109,12 +109,12 @@ export const constantRoutes = [
         component: () => import('@/views/edu_teacher/eduteacher_list'),
         meta: { title: '讲师列表', icon: 'list' }
       },
-      {
-        path: 'audit',
-        name: 'TchAudit',
-        component: () => import('@/views/edu_teacher/eduteacher_audit'),
-        meta: { title: '讲师审核', icon: 'audit' }
-      }
+      // {
+      //   path: 'audit',
+      //   name: 'TchAudit',
+      //   component: () => import('@/views/edu_teacher/eduteacher_audit'),
+      //   meta: { title: '讲师审核', icon: 'audit' }
+      // }
     ]
   },
 
