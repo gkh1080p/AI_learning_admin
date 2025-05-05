@@ -38,14 +38,9 @@
           </el-form-item>
         </div>
       </div>
-      <el-form-item label="分成比例：" prop="division">
-        <el-input-number v-model="data.division" :min="50" :max="100" style="width: 160px" />
-      </el-form-item>
-      <el-form-item label="排序：" prop="sort">
-        <el-input-number v-model="data.sort" style="width: 160px" />
-      </el-form-item>
+     
     </el-form>
-    <el-form :model="data" size="mini" label-width="100px">
+    <el-form :model="data" size="mini" label-width="100px" style="margin-top: 80px;">
       <el-form-item label="讲师简介：" prop="intro" class="block">
         <el-input
           v-model="data.intro"
@@ -122,6 +117,7 @@ export default {
       this.data.file = file.raw
     },
     selectResume(file) {
+      console.log('简历',file)
       this.data.resumeFile = file.raw
       this.resumeName = file.name
     }

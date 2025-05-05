@@ -35,7 +35,7 @@
         <el-table-column prop="name" label="讲师名称" />
         <el-table-column prop="mobile" label="手机号" />
         <el-table-column prop="email" label="邮箱地址" />
-        <el-table-column prop="division" label="分成比例" width="80" align="center" />
+        
         <el-table-column prop="enable" label="状态" width="180" align="center">
           <template slot-scope="scope">
             <el-switch
@@ -134,7 +134,7 @@
         <div style="color: red;margin-bottom: 20px">* 新账户默认密码为<strong>654321</strong>，创建账户后请修改</div>
         <v-eduteacher-add-update ref="AddDialog" />
         <span slot="footer">
-          <el-button type="primary" size="small" @click="createUser">创 建</el-button>
+          <el-button type="primary" size="small" @click="createUserTeacher">创 建</el-button>
           <el-button size="small" @click="createDialogVisible = false">取 消</el-button>
         </span>
       </el-dialog>
@@ -281,6 +281,7 @@ export default {
       this.viewResumeDialogTitle = `预览讲师[${user.name}]简历`
       // 加载pdf
       this.pdfSrc = null
+      console.log('简历', user)
       if (user.resume) {
         this.pdfSrc = pdf.createLoadingTask(user.resume)
         this.pdfSrc.promise
@@ -321,6 +322,7 @@ export default {
     // 修改信息
     updateProfile() {
       const params = this.$refs.UpdateDialog.getData()
+      console.log('创建用户', params)
       updateProfile(params).then(resp => {
         this.$message.success(resp.message)
         this.updateProfileDialogVisible = false
@@ -345,9 +347,10 @@ export default {
       })
     },
     // 创建用户
-    createUser() {
+    createUserTeacher() {
       const params = this.$refs.AddDialog.getData()
       params.password = '654321'
+      console.log('创建用户', params)
       createUser(params).then(resp => {
         this.$message.success(resp.message)
         this.createDialogVisible = false
