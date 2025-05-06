@@ -20,16 +20,9 @@
           </el-upload>
         </el-tooltip>
         <div class="avatar-right">
-          <div>
             <el-form-item label="讲师名称：" prop="name">
               <el-input v-model="data.name" placeholder="请输入用户名" />
             </el-form-item>
-            <el-form-item v-if="original.status" label="审核状态：" prop="status">
-              <el-tag v-if="original.status==='PASS'" type="success" size="small">正常</el-tag>
-              <el-tag v-if="original.status==='AUDITING'" type="" size="small">待审核</el-tag>
-              <el-tag v-if="original.status==='NOT_PASS'" type="danger" size="small">不通过</el-tag>
-            </el-form-item>
-          </div>
           <el-form-item label="手机号：" prop="mobile">
             <el-input v-model="data.mobile" placeholder="请输入昵称" />
           </el-form-item>
@@ -40,7 +33,7 @@
       </div>
      
     </el-form>
-    <el-form :model="data" size="mini" label-width="100px" style="margin-top: 80px;">
+    <el-form :model="data" size="mini" label-width="100px" >
       <el-form-item label="讲师简介：" prop="intro" class="block">
         <el-input
           v-model="data.intro"
