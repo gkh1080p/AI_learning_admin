@@ -8,7 +8,9 @@
     </el-col>
     <el-col :key="refreshKey" :span="7" class="selection">
       <div v-for="chapter of chapterData" :key="chapter.id" class="chapter">
+
         <div class="title ellipsis" :title="chapter.title">{{ chapter.title }}</div>
+        <h3>课程列表</h3>
         <div v-for="(value) of videoData[chapter.id]" :key="`${chapter.id}:${value.id}`"
           :class="{ 'video': true, 'active': activeItem === `${chapter.id}:${value.id}` }"
           @click="play(value.videoId); activeItem = `${chapter.id}:${value.id}`;">
@@ -19,14 +21,21 @@
           <div class="info">
             <span class="duration">时长: {{ value.duration }}</span>
           </div>
+
         </div>
         <!-- 讲义列表 -->
+        <h3>讲义列表</h3>
         <div class="materials" v-if="materialData[chapter.id] && materialData[chapter.id].length">
-          <div v-for="item in materialData[chapter.id]" :key="item.id" class="material-item ellipsis"
-            @click.stop="openMaterial(item.id)" :title="item.title">
-            <i class="el-icon-document" /> {{ item.title }}
+          <div v-for="item in materialData[chapter.id]" :key="item.id" class="material-item">
+            <a :href="item.eduMaterialId" target="_blank" rel="noopener noreferrer" class="material-link"
+              :title="item.title">
+              <i class="el-icon-document material-icon" />
+              <span class="material-title ellipsis">{{ item.title }}</span>
+              <span class="material-title ellipsis">{{ item.createTime.split(' ')[0] }}</span>
+            </a>
           </div>
         </div>
+
       </div>
     </el-col>
   </el-row>
@@ -57,32 +66,22 @@ export default {
     },
     listChaptersAndVideos(courseId) {
       listChapters(courseId).then(resp => {
-        console.log('章节列表', resp.data)
         this.chapterData = resp.data
         let len = resp.data.length
         for (const c of resp.data) {
           listVideos(c.id).then(resp => {
             console.log('视频列表', resp.data)
-            this.videoData[c.id] = resp.data
+            this.$set(this.videoData, c.id, resp.data)
             // 获取完视频列表
-            if (--len <= 0) {
-              // 关键：强制刷新组件渲染
-              this.refreshKey = !this.refreshKey
-              // 准备第一个视频
-              try {
-                const firstChapterId = this.chapterData[0].id
-                const firstVideo = this.videoData[firstChapterId][0]
-                this.play(firstVideo.videoId)
-                // 设置第一个视频激活
-                this.activeItem = `${firstChapterId}:${firstVideo.id}`
-              } catch (e) {
-                console.log(e)
-              }
+            if (!this.player && this.videoData[this.chapterData[0].id]?.[0]) {
+              const firstVideo = this.videoData[this.chapterData[0].id][0]
+              this.play(firstVideo.videoId)
+              this.activeItem = `${this.chapterData[0].id}:${firstVideo.id}`
             }
           })
           listMeterial(c.id).then(resp => {
             console.log('资料列表', resp.data)
-            this.materialData[c.id] = resp.data
+            this.$set(this.materialData, c.id, resp.data)
           })
         }
       })
@@ -119,10 +118,7 @@ export default {
         })
       }
     },
-    openMaterial(materialId) {
-      // this.$router.push({ name: 'MaterialPreview', query: { id: materialId } });
-      console.log('打开资料', materialId)
-    },
+
     dispose() {
       if (this.player) {
         this.player.dispose()
@@ -204,18 +200,42 @@ export default {
 }
 
 .materials {
-  margin-left: 24px;
-  margin-top: 4px;
+  margin-top: 12px;
+  padding-left: 4px;
+  border-left: 3px solid #409EFF;
+  color: #fff;
 }
 
 .material-item {
-  cursor: pointer;
-  font-size: 13px;
-  color: #409EFF;
-  padding: 2px 0;
+  margin: 6px 0;
+  background: #1f1b1b;
+  border-radius: 6px;
+  transition: background 0.2s;
+  padding: 8px 12px;
+  color: #fff;
 }
 
 .material-item:hover {
-  text-decoration: underline;
+  background-color: #159843;
+}
+
+.material-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.material-icon {
+  font-size: 16px;
+  margin-right: 8px;
+  color: #409EFF;
+}
+
+.material-title {
+  font-size: 14px;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
