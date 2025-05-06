@@ -6,12 +6,6 @@
         <el-form-item label="课程名称：" prop="title">
           <el-input v-model="searchParams.title" placeholder="输入课程名称搜索" />
         </el-form-item>
-        <!-- <el-form-item label="是否免费：" prop="free">
-          <el-select v-model="searchParams.free" style="width: 130px">
-            <el-option label="免费" :value="true" />
-            <el-option label="收费" :value="false" />
-          </el-select>
-        </el-form-item> -->
         <el-form-item label="审核状态：" prop="status">
           <el-select v-model="searchParams.status" style="width: 130px">
             <el-option label="待审核" :value="'AUDITING'" />
@@ -60,12 +54,17 @@
         <el-table-column label="操作" width="280">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" @click="openUpdateProfileDialog(scope.row)">修改</el-button>
-            <el-button
+            <!-- <el-button
               type="warning"
               size="mini"
               @click="/FIRST_AUDITING|DRAFT/.test(scope.row.status)
                 ?openWatchVideoDialog(scope.row)
                 :openWatchVideoTmpDialog(scope.row)"
+            >观看</el-button> -->
+            <el-button
+              type="warning"
+              size="mini"
+              @click=openWatchVideoDialog(scope.row)
             >观看</el-button>
             <el-popconfirm
               style="margin:0 10px"

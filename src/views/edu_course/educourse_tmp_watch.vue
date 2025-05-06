@@ -24,7 +24,7 @@
           </div>
           <div class="info">
             <span class="duration">时长: {{ value.duration }}</span>
-            <span v-if="value.free" class="free">免费</span>
+            
           </div>
         </div>
       </div>

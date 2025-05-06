@@ -21,7 +21,7 @@
           </div>
           <div class="info">
             <span class="duration">时长: {{ value.duration }}</span>
-            <!-- <span v-if="value.free" class="free">免费</span> -->
+           
           </div>
         </div>
       </div>
@@ -58,6 +58,7 @@ export default {
         let len = resp.data.length
         for (const c of resp.data) {
           listVideos(c.id).then(resp => {
+            console.log('视频列表', resp.data)
             this.videoData[c.id] = resp.data
             // 获取完视频列表
             if (--len <= 0) {
