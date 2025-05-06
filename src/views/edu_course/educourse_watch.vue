@@ -9,19 +9,22 @@
     <el-col :key="refreshKey" :span="7" class="selection">
       <div v-for="chapter of chapterData" :key="chapter.id" class="chapter">
         <div class="title ellipsis" :title="chapter.title">{{ chapter.title }}</div>
-        <div
-          v-for="(value) of videoData[chapter.id]"
-          :key="`${chapter.id}:${value.id}`"
-          :class="{'video':true,'active':activeItem===`${chapter.id}:${value.id}`}"
-          @click="play(value.videoId);activeItem=`${chapter.id}:${value.id}`;"
-        >
+        <div v-for="(value) of videoData[chapter.id]" :key="`${chapter.id}:${value.id}`"
+          :class="{ 'video': true, 'active': activeItem === `${chapter.id}:${value.id}` }"
+          @click="play(value.videoId); activeItem = `${chapter.id}:${value.id}`;">
           <div class="title ellipsis" :title="value.title">
             <i class="el-icon-video-play" />
             {{ value.title }}
           </div>
           <div class="info">
             <span class="duration">时长: {{ value.duration }}</span>
-           
+          </div>
+        </div>
+        <!-- 讲义列表 -->
+        <div class="materials" v-if="materialData[chapter.id] && materialData[chapter.id].length">
+          <div v-for="item in materialData[chapter.id]" :key="item.id" class="material-item ellipsis"
+            @click.stop="openMaterial(item.id)" :title="item.title">
+            <i class="el-icon-document" /> {{ item.title }}
           </div>
         </div>
       </div>
@@ -32,7 +35,7 @@
 <script>
 import { listChapters } from '@/api/chapter'
 import { listVideos, getPlayAuth } from '@/api/video'
-
+import { listMeterial } from '@/api/material'
 export default {
   name: 'EducourseWatch',
   data() {
@@ -42,6 +45,7 @@ export default {
       chapterData: [],
       // <chapterId, videoList>
       videoData: {},
+      materialData: {},
       refreshKey: false,
       activeItem: ''
     }
@@ -75,6 +79,10 @@ export default {
                 console.log(e)
               }
             }
+          })
+          listMeterial(c.id).then(resp => {
+            console.log('资料列表', resp.data)
+            this.materialData[c.id] = resp.data
           })
         }
       })
@@ -111,6 +119,10 @@ export default {
         })
       }
     },
+    openMaterial(materialId) {
+      // this.$router.push({ name: 'MaterialPreview', query: { id: materialId } });
+      console.log('打开资料', materialId)
+    },
     dispose() {
       if (this.player) {
         this.player.dispose()
@@ -122,7 +134,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .course {
   .selection {
     position: absolute;
@@ -131,12 +142,15 @@ export default {
     padding: 20px 16px;
     overflow: auto;
     background-color: #232323;
+
     &::-webkit-scrollbar {
       width: 4px;
     }
+
     &::-webkit-scrollbar-thumb {
       background: #64a5ff;
     }
+
     &::-webkit-scrollbar-track {
       background: #232323;
     }
@@ -147,7 +161,7 @@ export default {
   color: #c7c7c7;
   margin-top: 16px;
 
-  > .title {
+  >.title {
     font-size: 16px;
   }
 
@@ -160,7 +174,8 @@ export default {
       margin-right: 6px;
     }
 
-    &:hover,&.active {
+    &:hover,
+    &.active {
       color: #20a0ff;
 
       .duration {
@@ -186,5 +201,21 @@ export default {
       }
     }
   }
+}
+
+.materials {
+  margin-left: 24px;
+  margin-top: 4px;
+}
+
+.material-item {
+  cursor: pointer;
+  font-size: 13px;
+  color: #409EFF;
+  padding: 2px 0;
+}
+
+.material-item:hover {
+  text-decoration: underline;
 }
 </style>

@@ -231,7 +231,7 @@ export default {
     // 初审视频
     openWatchVideoDialog(curData) {
       this.watchVideoDialogVisible = true
-      this.watchVideoDialogTitle = `查看课程《${curData.title}》视频`
+      this.watchVideoDialogTitle = `查看课程《${curData.title}》`
       setTimeout(function() {
         this.$refs.WatchDialog.setData(curData.id)
       }.bind(this), 100)
