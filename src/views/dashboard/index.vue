@@ -87,11 +87,13 @@
 
             <div style="margin-top: 16px">
               <ve-pie height="238px" :data="{
-                columns: ['name', 'val'], rows: [
-                  { name: '科学类', val: stat.orderPayByWechatCount },
-                  { name: '人文类', val: stat.orderPayByAlipayCount },
-                ]
-              }" :settings="{ radius: 64, offsetY: 136 }" />
+                columns: ['name', 'val'], rows: classRow
+              }" :settings="{ radius: 64, offsetY: 136 }" 
+              :extend="{
+                legend: {
+                  show: false
+                }
+              }" />
             </div>
           </div>
         </el-card>
@@ -149,7 +151,7 @@
 
 <script>
 
-import { getCommon } from '@/api/stat'
+import { getCommon, getCourseViewstat } from '@/api/stat'
 import { parseTime } from '@/utils'
 
 export default {
@@ -182,6 +184,7 @@ export default {
         orderPayByNoneCount: 0, // 未支付的订单数量
         maleStudentCount: 0 // 男性学生数量
       },
+      classRow: [],
       // 统计时间选择框选项
       pickerOptions: {
         shortcuts: [{
@@ -246,6 +249,27 @@ export default {
       getCommon().then(resp => {
         this.stat = resp.data
         console.log(this.stat)
+      })
+
+      function formatCourseStats(courseArray) {
+        const resultMap = {};
+
+        courseArray.forEach(item => {
+          const title = item.courseTitle;
+          const count = item.totalPlayCount || 0;
+          if (resultMap[title]) {
+            resultMap[title] += count;
+          } else {
+            resultMap[title] = count;
+          }
+        });
+
+        const result = Object.entries(resultMap).map(([name, val]) => ({ name, val }));
+        return result;
+      }
+      getCourseViewstat().then(resp => {
+        this.classRow = formatCourseStats(resp.data);
+        console.log(this.classRow)
       })
     }
   },

@@ -17,3 +17,9 @@ export function getDaily(data) {
     data
   })
 }
+export function getCourseViewstat(data) {
+  return request({
+    url: `${api_prefix}/get/course/view`,
+    method: "get"
+  })
+}
