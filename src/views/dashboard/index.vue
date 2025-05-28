@@ -80,10 +80,10 @@
             <span class="cardName">课程类被观看数量</span>
           </div>
           <div class="cardContent clearfix">
-            <el-tooltip effect="dark" placement="top">
+            <!-- <el-tooltip effect="dark" placement="top">
               <div slot="content">总播放数量：{{ stat.orderCount }}</div>
               <span>{{ stat.orderCount }}</span>
-            </el-tooltip>
+            </el-tooltip> -->
 
             <div style="margin-top: 16px">
               <ve-pie height="238px" :data="{
